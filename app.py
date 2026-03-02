@@ -112,7 +112,11 @@ def index():
         total_pages=total_pages,
         total=total,
         start_number=start_number
-    )
+        
+@app.route("/sitemap.xml")
+def sitemap():
+    return render_template("sitemap.xml"), 200, {'Content-Type': 'application/xml'}
 
 if __name__ == "__main__":
     app.run()
+
