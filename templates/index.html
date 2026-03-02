@@ -206,6 +206,36 @@ to compare your score with previous year cutoff trends.
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- Pagination -->
+<div class="text-center mt-3">
+
+    <form method="POST">
+        <!-- Preserve filters -->
+        <input type="hidden" name="round" value="{{ selected_round }}">
+        <input type="hidden" name="institute" value="{{ selected_institute }}">
+        <input type="hidden" name="program" value="{{ selected_program }}">
+        <input type="hidden" name="category" value="{{ selected_category }}">
+        <input type="hidden" name="gate_score" value="{{ selected_gate_score }}">
+        <input type="hidden" name="search" value="{{ search }}">
+        <input type="hidden" name="entries" value="{{ entries }}">
+
+        {% if page > 1 %}
+            <button type="submit" name="page" value="{{ page - 1 }}" class="btn btn-secondary">
+                Previous
+            </button>
+        {% endif %}
+
+        <span class="mx-2">Page {{ page }} of {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+            <button type="submit" name="page" value="{{ page + 1 }}" class="btn btn-secondary">
+                Next
+            </button>
+        {% endif %}
+    </form>
+
+</div>
     </div>
 
     {% else %}
@@ -258,3 +288,4 @@ to compare your score with previous year cutoff trends.
 </body>
 
 </html>
+
