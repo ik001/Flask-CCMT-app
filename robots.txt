@@ -1,0 +1,3 @@
+@app.route("/robots.txt")
+def robots():
+    return "User-agent: *\nAllow: /\nSitemap: https://ccmt.aelbitra.in/sitemap.xml", 200, {'Content-Type': 'text/plain'}
