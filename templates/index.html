@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>CCMT 2025 Previous Year Cutoff Data</title>
+
+    <meta name="description"
+content="Explore CCMT 2025 previous year counselling cutoff data. Filter by GATE score, institute, program, category and round to analyze 2025 opening and closing ranks.">
+
+    <meta name="keywords"
+          content="CCMT previous year cutoff, CCMT opening closing rank, CCMT counselling data, CCMT cutoff analysis tool">
+
+    <meta name="author" content="Indrajeet Kumar">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CCMT 2025 Previous Year Cutoff Data">
+    <meta property="og:description" content="Filter CCMT previous year counselling cutoff data by GATE score, category, institute and round.">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CCMT Previous Year Cutoff Data Filter Tool">
+    <meta name="twitter:description" content="Analyze CCMT previous year cutoff data with smart filtering.">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is CCMT cutoff data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CCMT cutoff data represents the previous year opening and closing GATE scores for institutes and programs during counselling rounds."
+        }
+      },{
+        "@type": "Question",
+        "name": "How does GATE score eligibility filtering work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you enter your GATE score, the tool shows programs where the previous year minimum closing score was less than or equal to your entered score."
+        }
+      },{
+        "@type": "Question",
+        "name": "Is this website officially affiliated with CCMT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, this is an independent analysis tool based on publicly available previous year counselling data."
+        }
+      }]
+    }
+    </script>
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+    <!-- SEO Heading -->
+    <header class="text-center mb-4">
+        <h1>CCMT 2025 Cutoff Data</h1>
+        <p class="text-muted">
+            Analyze historical CCMT 2025 counselling opening and closing ranks.
+Filter by GATE score, institute, program, category and round
+to compare your score with previous year cutoff trends.
+        </p>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="card shadow p-4">
+
+        <form method="POST">
+
+            <div class="row g-3">
+
+                <div class="col-md-2">
+                    <label>Round</label>
+                    <select name="round" class="form-select">
+                        <option value="All">All</option>
+                        {% for r in rounds %}
+                        <option value="{{ r['round'] }}" {% if selected_round == r['round'] %}selected{% endif %}>
+                            {{ r['round'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Institute</label>
+                    <select name="institute" class="form-select">
+                        <option value="All">All</option>
+                        {% for i in institutes %}
+                        <option value="{{ i['institute'] }}" {% if selected_institute == i['institute'] %}selected{% endif %}>
+                            {{ i['institute'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Program</label>
+                    <select name="program" class="form-select">
+                        <option value="All">All</option>
+                        {% for p in programs %}
+                        <option value="{{ p['program'] }}" {% if selected_program == p['program'] %}selected{% endif %}>
+                            {{ p['program'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Category</label>
+                    <select name="category" class="form-select">
+                        <option value="All">All</option>
+                        {% for c in categories %}
+                        <option value="{{ c['category'] }}" {% if selected_category == c['category'] %}selected{% endif %}>
+                            {{ c['category'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label style="color: red;">GATE Score</label>
+                    <input type="number" name="gate_score"
+                           value="{{ selected_gate_score }}"
+                           class="form-control"
+                           placeholder="Enter score">
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+                <div class="col-md-2">
+                    <label>Show</label>
+                    <select name="entries" class="form-select">
+                        <option value="10" {% if entries == "10" %}selected{% endif %}>10</option>
+                        <option value="20" {% if entries == "20" %}selected{% endif %}>20</option>
+                        <option value="50" {% if entries == "50" %}selected{% endif %}>50</option>
+                        <option value="All" {% if entries == "All" %}selected{% endif %}>All</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 offset-md-6">
+                    <label>Search</label>
+                    <input type="text" name="search"
+                           value="{{ search }}"
+                           class="form-control"
+                           placeholder="Search institute or program">
+                </div>
+
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" name="page" value="1" class="btn btn-primary">
+                    Apply Filter
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- Results -->
+    {% if rows %}
+
+    <div class="mt-4">
+        <h5>Total Results Found: {{ total }}</h5>
+    </div>
+
+    <div class="table-responsive mt-2">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Round</th>
+                    <th>Institute</th>
+                    <th>Program</th>
+                    <th>Category</th>
+                    <th>Min Score</th>
+                    <th>Max Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ loop.index + start_number }}</td>
+                    <td>{{ row["round"] }}</td>
+                    <td>{{ row["institute"] }}</td>
+                    <td>{{ row["program"] }}</td>
+                    <td>{{ row["category"] }}</td>
+                    <td>{{ row["min_gate_score"] }}</td>
+                    <td>{{ row["max_gate_score"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <div class="alert alert-info mt-4">
+        Apply filters to view counselling data.
+    </div>
+    {% endif %}
+
+    <!-- FAQ Section -->
+<section class="mt-5">
+    <h2>Frequently Asked Questions (CCMT 2025 Cutoff)</h2>
+
+    <h5>What is CCMT 2025 cutoff data?</h5>
+    <p>
+        CCMT 2025 cutoff data represents the opening and closing GATE scores
+        for various institutes, programs, categories, and counselling rounds
+        during the CCMT 2025 admission process.
+    </p>
+
+    <h5>How does GATE score filtering work for CCMT 2025?</h5>
+    <p>
+        When you enter your GATE score, the tool displays programs where the
+        CCMT 2025 minimum closing score was less than or equal to your entered score.
+        This helps estimate eligibility based on previous year counselling data.
+    </p>
+
+    <h5>Does this website include multiple years of CCMT data?</h5>
+    <p>
+        Currently, this platform provides CCMT 2025 previous year cutoff data only.
+        Additional years may be added in future updates.
+    </p>
+
+    <h5>Is this an official CCMT or NIT counselling website?</h5>
+    <p>
+        No. This is an independent analysis tool based on publicly available
+        CCMT 2025 counselling records. It is not affiliated with CCMT or any
+        official counselling authority.
+    </p>
+
+</section>
+
+    <footer class="mt-4 text-muted small">
+        Disclaimer: This website is not affiliated with CCMT. Data shown is for analysis purposes only.
+    </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
