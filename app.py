@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 import sqlite3
 import math
 
@@ -8,6 +8,7 @@ def get_db_connection():
     conn = sqlite3.connect("counselling.db")
     conn.row_factory = sqlite3.Row
     return conn
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -82,13 +83,16 @@ def index():
         if entries != "All":
             limit = int(entries)
             offset = (page - 1) * limit
+
             data_query = "SELECT * " + base_query + " LIMIT ? OFFSET ?"
             rows = cursor.execute(data_query, params + [limit, offset]).fetchall()
+
             total_pages = math.ceil(total / limit) if limit else 1
             start_number = offset
         else:
             data_query = "SELECT * " + base_query
             rows = cursor.execute(data_query, params).fetchall()
+
             total_pages = 1
             start_number = 0
 
@@ -111,24 +115,19 @@ def index():
         page=page,
         total_pages=total_pages,
         total=total,
-        start_number=start_number)
-        
-@app.route("/sitemap.xml")
-def sitemap():
-    xml = render_template("sitemap.xml")
-    return Response(xml, mimetype="application/xml")
+        start_number=start_number
+    )
+
 
 @app.route('/robots.txt')
 def robots():
     return send_from_directory('.', 'robots.txt')
 
+
 @app.route('/sitemap.xml')
 def sitemap():
     return send_from_directory('.', 'sitemap.xml')
 
+
 if __name__ == "__main__":
     app.run()
-
-
-
-
