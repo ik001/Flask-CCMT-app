@@ -115,8 +115,10 @@ def index():
         
 @app.route("/sitemap.xml")
 def sitemap():
-    return render_template("sitemap.xml"), 200, {'Content-Type': 'application/xml'}
+    xml = render_template("sitemap.xml")
+    return Response(xml, mimetype="application/xml")
 
 if __name__ == "__main__":
     app.run()
+
 
