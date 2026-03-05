@@ -1,7 +1,0 @@
-@app.route("/robots.txt")
-def robots():
-    robots_text = """User-agent: *
-Allow: /
-Sitemap: https://ccmt.aelbitra.in/sitemap.xml
-"""
-    return robots_text, 200, {"Content-Type": "text/plain"}
