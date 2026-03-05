@@ -111,7 +111,7 @@ def index():
         page=page,
         total_pages=total_pages,
         total=total,
-        start_number=start_number
+        start_number=start_number)
         
 @app.route("/sitemap.xml")
 def sitemap():
@@ -128,6 +128,7 @@ def sitemap():
 
 if __name__ == "__main__":
     app.run()
+
 
 
 
