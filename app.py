@@ -123,21 +123,12 @@ def index():
 def robots():
     return send_from_directory('.', 'robots.txt')
 
-
-
-
 @app.route('/sitemap.xml')
 def sitemap():
-    xml = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ccmt.aelbitra.in/</loc>
-    <priority>1.0</priority>
-  </url>
-</urlset>'''
-    return Response(xml, mimetype='application/xml')
+    return send_from_directory('.', 'sitemap.xml')
 
 
 if __name__ == "__main__":
     app.run()
+
 
