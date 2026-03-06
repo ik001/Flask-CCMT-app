@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory,Response
 import sqlite3
 import math
 
@@ -124,10 +124,20 @@ def robots():
     return send_from_directory('.', 'robots.txt')
 
 
+
+
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('.', 'sitemap.xml')
+    xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ccmt.aelbitra.in/</loc>
+    <priority>1.0</priority>
+  </url>
+</urlset>'''
+    return Response(xml, mimetype='application/xml')
 
 
 if __name__ == "__main__":
     app.run()
+
